@@ -1,0 +1,4 @@
+rootProject.name = 'error-handler-starter'
+include 'error-handler-spring-boot-autoconfigure'
+include 'error-handler-spring-boot-starter'
+include 'exceptions'

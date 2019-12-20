@@ -1,0 +1,40 @@
+errors:
+  error-codes:
+    '[error.null.pointer]':
+      http-code: 500
+      client-code: NULL_POINTER
+      messages:
+        ru: "Ошибка на стороне сервера"
+        en: "Server error"
+
+    '[error.unknown]':
+      http-code: 500
+      messages:
+        ru: "Неизвестная ошибка. Пожалуйста, попробуйте позже"
+
+    '[error.request.failed]':
+      http-code: 500
+      messages:
+        ru: "Что-то пошло не так. Мы уже работаем над этим"
+        en: "External request failed. Please, try later"
+
+    '[test.error.code]':
+      http-code: 404
+      client-code: NOT_FOUND
+      messages:
+        en: "Something not found"
+        ru: "Не найдено"
+
+    '[test.error.missing.messages]':
+      http-code: 404
+      client-code: NOT_FOUND
+      messages:
+        de: "Wrong"
+
+  default-error-configuration:
+    http-code: 500
+    client-code: "INTERNAL_ERROR"
+    messages:
+      en: "Internal server error"
+      ru: "Внутренняя ошибка сервера"
+  default-language: en

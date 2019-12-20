@@ -1,0 +1,68 @@
+plugins {
+    id 'java-library'
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id 'nebula.release' version '13.1.1'
+    id "nebula.maven-publish" version "13.4.1"
+}
+
+sourceCompatibility = 1.8
+
+allprojects {
+    group = 'com.biuwsi.common'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+
+    ext {
+        springCloudVersion = 'Greenwich.RELEASE'
+        springBootVersion = '2.1.6.RELEASE'
+        lombokVersion = '1.18.8'
+        hibernateValidator = '6.0.17.Final'
+    }
+
+    dependencyManagement {
+        dependencies {
+            dependency "org.springframework.boot:spring-boot-starter:$springBootVersion"
+            dependency "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+            dependency "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
+
+            dependency "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+
+            dependency "org.projectlombok:lombok:$lombokVersion"
+            dependency "org.hibernate:hibernate-validator:$hibernateValidator"
+            dependency "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+        }
+    }
+}
+
+subprojects {
+
+    apply plugin: 'nebula.release'
+    apply plugin: 'nebula.maven-publish'
+
+    build.dependsOn test
+
+    publishing {
+        repositories {
+            maven() {
+                def releasesRepoUrl = "$artifactory_contextUrl/repository/maven-releases"
+                def snapshotsRepoUrl = "$artifactory_contextUrl/repository/maven-snapshots"
+                url = version.toString().endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                credentials {
+                    username = artifactory_user
+                    password = artifactory_password
+                }
+            }
+        }
+    }
+}
+
+wrapper {
+    gradleVersion = '5.6.2'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-bin.zip"
+}
