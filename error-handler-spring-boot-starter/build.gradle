@@ -1,3 +1,4 @@
 dependencies {
-    compile project(':error-handler-spring-boot-autoconfigure')
+    api project(':error-handler-spring-boot-autoconfigure')
+    api project(':exceptions')
 }

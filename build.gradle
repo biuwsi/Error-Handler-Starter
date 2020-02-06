@@ -50,8 +50,8 @@ subprojects {
     publishing {
         repositories {
             maven() {
-                def releasesRepoUrl = "$artifactory_contextUrl/repository/maven-releases"
-                def snapshotsRepoUrl = "$artifactory_contextUrl/repository/maven-snapshots"
+                def releasesRepoUrl = "$artifactory_contextUrl/artifactory/libs-release-local"
+                def snapshotsRepoUrl = "$artifactory_contextUrl/artifactory/libs-snapshot-local"
                 url = version.toString().endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
                 credentials {
                     username = artifactory_user
@@ -63,6 +63,6 @@ subprojects {
 }
 
 wrapper {
-    gradleVersion = '5.6.2'
+    gradleVersion = '6.1'
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-bin.zip"
 }
