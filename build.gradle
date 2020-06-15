@@ -36,28 +36,7 @@ allprojects {
             dependency "org.projectlombok:lombok:$lombokVersion"
             dependency "org.hibernate:hibernate-validator:$hibernateValidator"
             dependency "org.junit.jupiter:junit-jupiter-engine:5.3.1"
-        }
-    }
-}
-
-subprojects {
-
-    apply plugin: 'nebula.release'
-    apply plugin: 'nebula.maven-publish'
-
-    build.dependsOn test
-
-    publishing {
-        repositories {
-            maven() {
-                def releasesRepoUrl = "$artifactory_contextUrl/artifactory/libs-release-local"
-                def snapshotsRepoUrl = "$artifactory_contextUrl/artifactory/libs-snapshot-local"
-                url = version.toString().endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-                credentials {
-                    username = artifactory_user
-                    password = artifactory_password
-                }
-            }
+            dependency "org.postgresql:postgresql:42.2.12"
         }
     }
 }
